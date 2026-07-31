@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dylan's Couch Drops — Current Inventory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#00203F;
+    --blue:#007BD8;
+    --blue-dark:#005FAE;
+    --blue-light:#47B6FE;
+    --blue-pale:#ACDDFE;
+    --white:#FFFFFF;
+    --bg:#F5FAFF;
+    --line:#D7ECFC;
+    --muted:#3F6584;
+    --shadow: 0 10px 30px rgba(0,32,63,0.10);
+    --shadow-hover: 0 18px 40px rgba(0,32,63,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
+
+  /* Hero */
+  header.hero{
+    padding:56px 24px 56px;
+    text-align:center;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(71,182,254,0.18), transparent 40%),
+      radial-gradient(circle at 85% 0%, rgba(0,123,216,0.14), transparent 45%),
+      var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  header.hero .logo{
+    display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;
+  }
+  header.hero .logo img{height:44px;width:auto;}
+  header.hero .logo .wordmark{
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:var(--navy);letter-spacing:.01em;
+  }
+  header.hero .eyebrow{
+    letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;
+    color:var(--blue-dark);margin-bottom:14px;
+  }
+  header.hero h1{font-size:clamp(32px,5vw,52px);margin:0 0 14px;color:var(--navy);}
+  header.hero p{max-width:560px;margin:0 auto;color:var(--muted);font-size:16px;line-height:1.6;}
+  header.hero .cta-row{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:999px;font-weight:600;font-size:14px;
+    text-decoration:none;cursor:pointer;border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(0,123,216,0.35);}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy);}
+  .btn-ghost:hover{background:var(--navy);color:#fff;transform:translateY(-2px);}
+
+  /* Filter bar */
+  .filter-bar{
+    max-width:1180px;margin:0 auto;padding:28px 24px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .filter-bar .count{color:var(--muted);font-size:14px;}
+  .filter-chips{display:flex;gap:8px;}
+  .chip{
+    padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+    background:#fff;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+    transition:all .15s ease;
+  }
+  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+  /* Grid */
+  main{max-width:1180px;margin:0 auto;padding:28px 24px 80px;}
+  .grid{
+    display:grid;gap:28px;margin-top:24px;
+    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+  }
+  .card{
+    background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+  .card .thumb{
+    position:relative;aspect-ratio:4/3;background:var(--blue-pale) center/cover no-repeat;
+    display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;
+  }
+  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card .badge{
+    position:absolute;top:12px;left:12px;padding:5px 12px;border-radius:999px;
+    font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    background:rgba(0,32,63,0.85);color:#fff;
+  }
+  .card .badge.sold{background:rgba(0,32,63,0.88);}
+  .card .badge.available{background:rgba(0,123,216,0.92);}
+  .card .price-tag{
+    position:absolute;bottom:12px;right:12px;background:#fff;color:var(--navy);
+    padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:var(--shadow);
+  }
+  .card .body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column;}
+  .card h3{margin:0 0 8px;font-size:19px;color:var(--navy);}
+  .card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;}
+  .card .meta-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:12.5px;color:var(--muted);}
+
+  .empty-state{
+    text-align:center;padding:80px 20px;color:var(--muted);
+  }
+  .empty-state .icon{font-size:40px;margin-bottom:12px;}
+
+  /* Modal */
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,32,63,0.55);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;padding:24px;z-index:100;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:#fff;max-width:840px;width:100%;max-height:88vh;overflow-y:auto;
+    border-radius:20px;box-shadow:0 30px 70px rgba(0,20,40,0.35);position:relative;
+  }
+  .modal .close-btn{
+    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+    background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:18px;color:var(--navy);z-index:5;
+  }
+  .modal .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
+  .modal .gallery img{width:100%;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;object-fit:cover;}
+  .modal .gallery-dots{display:flex;gap:6px;justify-content:center;padding:10px 0 0;}
+  .modal .gallery-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);}
+  .modal .content{padding:26px 28px 30px;}
+  .modal h2{margin:0 0 4px;font-size:26px;}
+  .modal .price{color:var(--blue-dark);font-weight:700;font-size:20px;margin-bottom:14px;}
+  .modal .desc{white-space:pre-wrap;line-height:1.7;color:var(--muted);font-size:14.5px;margin-bottom:20px;}
+  .modal video{width:100%;border-radius:12px;margin-bottom:20px;background:#000;}
+  .modal .status-line{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .modal .actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+  /* Booking section */
+  .booking{
+    background:var(--navy);color:#fff;padding:56px 24px;text-align:center;
+    margin-top:20px;
+  }
+  .booking h2{font-size:clamp(24px,4vw,34px);margin:0 0 12px;}
+  .booking p{color:var(--blue-pale);max-width:520px;margin:0 auto 26px;line-height:1.6;font-size:15px;}
+
+  footer{padding:32px 24px;text-align:center;color:var(--muted);font-size:13px;}
+
+  .loading{text-align:center;padding:80px 20px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="logo">
+    <!-- TODO: swap in Dylan's logo image, e.g. <img src="logo.png" alt="Dylan's Couch Drops"> -->
+    <span class="wordmark">Dylan's Couch Drops</span>
+  </div>
+  <div class="eyebrow">Columbus, GA &amp; Fort Benning</div>
+  <h1>Current Inventory</h1>
+  <p>Quality secondhand couches, refreshed and ready for a new living room. Browse what's in stock right now — new pieces drop in all the time.</p>
+  <div class="cta-row">
+    <a href="#inventory" class="btn btn-primary">Browse Inventory</a>
+    <a href="#book" class="btn btn-ghost">Book a Warehouse Visit</a>
+  </div>
+</header>
+
+<div class="filter-bar" id="inventory">
+  <div class="count" id="resultCount">Loading inventory…</div>
+  <div class="filter-chips">
+    <div class="chip active" data-filter="available">Available</div>
+    <div class="chip" data-filter="all">Show All</div>
+  </div>
+</div>
+
+<main>
+  <div id="grid" class="grid"></div>
+  <div id="emptyState" class="empty-state" style="display:none;">
+    <div class="icon">🛋️</div>
+    <div>No couches match that filter right now — check back soon.</div>
+  </div>
+</main>
+
+<section class="booking" id="book">
+  <h2>Want to see one in person?</h2>
+  <p>Book a time to swing by the warehouse and check out the couches yourself before you commit.</p>
+  <a class="btn btn-primary" id="bookingLink" href="#" target="_blank" rel="noopener">Book a Visit</a>
+</section>
+
+<footer>
+  Dylan's Couch Drops LLC · 4597 English Ivy Drive, Columbus GA · (706) 987-9525 · dylanscouchdrops@gmail.com
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+  // ---- CONFIG ----
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=1417070672";
+  const BOOKING_URL = "#"; // TODO: replace with your GHL calendar booking link
+
+  document.getElementById('bookingLink').href = BOOKING_URL;
+
+  // ---- CSV PARSER (handles quoted fields with commas/newlines) ----
+  function parseCSV(text){
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++){
+      const c = text[i], next = text[i+1];
+      if (inQuotes){
+        if (c === '"' && next === '"'){ field += '"'; i++; }
+        else if (c === '"'){ inQuotes = false; }
+        else { field += c; }
+      } else {
+        if (c === '"'){ inQuotes = true; }
+        else if (c === ','){ row.push(field); field = ''; }
+        else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+        else if (c === '\r'){ /* skip */ }
+        else { field += c; }
+      }
+    }
+    if (field.length || row.length){ row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function driveFileId(url){
+    const m = url.match(/[-\w]{25,}/);
+    return m ? m[0] : null;
+  }
+
+  function driveImageUrl(id){
+    return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+  }
+
+  function parseFileList(cell){
+    if (!cell) return [];
+    return cell.split(',').map(s => s.trim()).filter(Boolean).map(driveFileId).filter(Boolean);
+  }
+
+  let ITEMS = [];
+  let currentFilter = 'available';
+
+  async function loadInventory(){
+    try {
+      const res = await fetch(CSV_URL + '&_=' + Date.now());
+      const text = await res.text();
+      const rows = parseCSV(text);
+      const headers = rows[0].map(h => h.trim());
+      const idx = name => headers.indexOf(name);
+
+      const iTitle = idx('Couch Title');
+      const iDesc = idx('Description (include condition/any damage)');
+      const iPrice = idx('Price ($)');
+      const iPhotos = idx('Photos');
+      const iVideo = idx('Video (optional)');
+      const iStatus = idx('Status');
+      const iTime = idx('Timestamp');
+
+      ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
+        title: r[iTitle] || 'Couch',
+        desc: r[iDesc] || '',
+        price: r[iPrice] || '',
+        photoIds: parseFileList(r[iPhotos]),
+        videoIds: parseFileList(r[iVideo]),
+        status: (r[iStatus] || 'Available').trim(),
+        timestamp: r[iTime] || ''
+      })).reverse(); // newest first
+
+      render();
+    } catch (err){
+      document.getElementById('grid').innerHTML = '';
+      document.getElementById('resultCount').textContent = 'Could not load inventory right now.';
+      console.error(err);
+    }
+  }
+
+  function render(){
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('emptyState');
+    const filtered = currentFilter === 'available'
+      ? ITEMS.filter(i => i.status.toLowerCase() !== 'sold')
+      : ITEMS;
+
+    document.getElementById('resultCount').textContent =
+      filtered.length === 0 ? 'No couches to show' :
+      `${filtered.length} couch${filtered.length === 1 ? '' : 'es'}${currentFilter === 'available' ? ' available' : ' total'}`;
+
+    grid.innerHTML = '';
+    empty.style.display = filtered.length === 0 ? 'block' : 'none';
+
+    filtered.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const thumbUrl = item.photoIds[0] ? driveImageUrl(item.photoIds[0]) : '';
+      const isSold = item.status.toLowerCase() === 'sold';
+      card.innerHTML = `
+        <div class="thumb">
+          ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" alt="${escapeHtml(item.title)}">` : 'No photo yet'}
+          <span class="badge ${isSold ? 'sold' : 'available'}">${isSold ? 'Sold' : 'Available'}</span>
+          ${item.price ? `<span class="price-tag">$${escapeHtml(item.price)}</span>` : ''}
+        </div>
+        <div class="body">
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.desc)}</p>
+          <div class="meta-row">
+            <span>${item.photoIds.length} photo${item.photoIds.length === 1 ? '' : 's'}${item.videoIds.length ? ' · video' : ''}</span>
+            <span>View details →</span>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(item));
+      grid.appendChild(card);
+    });
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function openModal(item){
+    const modal = document.getElementById('modal');
+    const isSold = item.status.toLowerCase() === 'sold';
+    const galleryImgs = item.photoIds.length
+      ? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
+      : `<img src="" style="opacity:0" alt="">`;
+    const videoHtml = item.videoIds.length
+      ? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
+      : '';
+
+    modal.innerHTML = `
+      <div class="close-btn" id="closeModal">✕</div>
+      <div class="gallery">${galleryImgs}</div>
+      <div class="content">
+        <h2>${escapeHtml(item.title)}</h2>
+        ${item.price ? `<div class="price">$${escapeHtml(item.price)}</div>` : ''}
+        <div class="status-line" style="color:${isSold ? '#00203F' : '#007BD8'}">${isSold ? 'Sold' : 'Available now'}</div>
+        <div class="desc">${escapeHtml(item.desc)}</div>
+        ${videoHtml}
+        <div class="actions">
+          <a class="btn btn-primary" href="${BOOKING_URL}" target="_blank" rel="noopener">Book a Visit</a>
+          <a class="btn btn-ghost" href="mailto:dylanscouchdrops@gmail.com?subject=${encodeURIComponent('Question about: ' + item.title)}">Email a Question</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('overlay').classList.add('open');
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+  }
+
+  function closeModal(){
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  document.getElementById('overlay').addEventListener('click', (e) => {
+    if (e.target.id === 'overlay') closeModal();
+  });
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentFilter = chip.dataset.filter;
+      render();
+    });
+  });
+
+  loadInventory();
+  setInterval(loadInventory, 60000); // refresh every minute so new drops show up automatically
+</script>
+
+</body>
+</html>
