@@ -242,6 +242,17 @@
     return cell.split(',').map(s => s.trim()).filter(Boolean).map(driveFileId).filter(Boolean);
   }
 
+  // Returns photoIds reordered so the chosen cover photo comes first.
+  function orderedPhotos(item){
+    const ids = item.photoIds;
+    if (!ids.length) return ids;
+    const idx = (item.coverIndex >= 0 && item.coverIndex < ids.length) ? item.coverIndex : 0;
+    if (idx === 0) return ids;
+    const arr = ids.slice();
+    const [cover] = arr.splice(idx, 1);
+    return [cover, ...arr];
+  }
+
   let ITEMS = [];
   let currentFilter = 'available';
 
@@ -260,6 +271,7 @@
       const iVideo = idx('Video (optional)');
       const iStatus = idx('Status');
       const iTime = idx('Timestamp');
+      const iCover = idx('Cover Photo (#)');
 
       ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
         title: r[iTitle] || 'Couch',
@@ -268,7 +280,8 @@
         photoIds: parseFileList(r[iPhotos]),
         videoIds: parseFileList(r[iVideo]),
         status: (r[iStatus] || 'Available').trim(),
-        timestamp: r[iTime] || ''
+        timestamp: r[iTime] || '',
+        coverIndex: (iCover >= 0 && parseInt(r[iCover], 10) > 0) ? parseInt(r[iCover], 10) - 1 : 0
       })).reverse(); // newest first
 
       render();
@@ -296,13 +309,14 @@
     filtered.forEach((item, i) => {
       const card = document.createElement('div');
       card.className = 'card';
-      const thumbUrl = item.photoIds[0] ? driveImageUrl(item.photoIds[0]) : '';
+      const coverId = orderedPhotos(item)[0];
+      const thumbUrl = coverId ? driveImageUrl(coverId) : '';
       const isSold = item.status.toLowerCase() === 'sold';
       card.innerHTML = `
         <div class="thumb">
           ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" alt="${escapeHtml(item.title)}">` : 'No photo yet'}
           <span class="badge ${isSold ? 'sold' : 'available'}">${isSold ? 'Sold' : 'Available'}</span>
-          ${item.price ? `<span class="price-tag">$${escapeHtml(item.price)}</span>` : ''}
+          ${item.price ? `<span class="price-tag">$${escapeHtml(formatPrice(item.price))}</span>` : ''}
         </div>
         <div class="body">
           <h3>${escapeHtml(item.title)}</h3>
@@ -318,6 +332,11 @@
     });
   }
 
+  // Strips any $ signs someone typed into the Price field so we don't double up with our own $.
+  function formatPrice(price){
+    return String(price || '').replace(/\$/g, '').trim();
+  }
+
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
@@ -325,8 +344,9 @@
   function openModal(item){
     const modal = document.getElementById('modal');
     const isSold = item.status.toLowerCase() === 'sold';
-    const galleryImgs = item.photoIds.length
-      ? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
+    const photos = orderedPhotos(item);
+    const galleryImgs = photos.length
+      ? photos.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
       : `<img src="" style="opacity:0" alt="">`;
     const videoHtml = item.videoIds.length
       ? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
@@ -337,7 +357,7 @@
       <div class="gallery">${galleryImgs}</div>
       <div class="content">
         <h2>${escapeHtml(item.title)}</h2>
-        ${item.price ? `<div class="price">$${escapeHtml(item.price)}</div>` : ''}
+        ${item.price ? `<div class="price">$${escapeHtml(formatPrice(item.price))}</div>` : ''}
         <div class="status-line" style="color:${isSold ? '#00203F' : '#007BD8'}">${isSold ? 'Sold' : 'Available now'}</div>
         <div class="desc">${escapeHtml(item.desc)}</div>
         ${videoHtml}
