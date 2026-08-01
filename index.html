@@ -265,24 +265,30 @@
       const idx = name => headers.indexOf(name);
 
       const iTitle = idx('Couch Title');
-      const iDesc = idx('Description (include condition/any damage)');
+      const iNote = idx('Things to note');
       const iPrice = idx('Price ($)');
       const iPhotos = idx('Photos');
       const iVideo = idx('Video (optional)');
       const iStatus = idx('Status');
       const iTime = idx('Timestamp');
       const iCover = idx('Cover Photo (#)');
+      const iDims = idx('Dimensions');
 
-      ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
-        title: r[iTitle] || 'Couch',
-        desc: r[iDesc] || '',
-        price: r[iPrice] || '',
-        photoIds: parseFileList(r[iPhotos]),
-        videoIds: parseFileList(r[iVideo]),
-        status: (r[iStatus] || 'Available').trim(),
-        timestamp: r[iTime] || '',
-        coverIndex: (iCover >= 0 && parseInt(r[iCover], 10) > 0) ? parseInt(r[iCover], 10) - 1 : 0
-      })).reverse(); // newest first
+      ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => {
+        const item = {
+          title: r[iTitle] || 'Couch',
+          note: r[iNote] || '',
+          price: r[iPrice] || '',
+          dims: iDims >= 0 ? (r[iDims] || '') : '',
+          photoIds: parseFileList(r[iPhotos]),
+          videoIds: parseFileList(r[iVideo]),
+          status: (r[iStatus] || 'Available').trim(),
+          timestamp: r[iTime] || '',
+          coverIndex: (iCover >= 0 && parseInt(r[iCover], 10) > 0) ? parseInt(r[iCover], 10) - 1 : 0
+        };
+        item.desc = buildDescription(item);
+        return item;
+      }).reverse(); // newest first
 
       render();
     } catch (err){
@@ -335,6 +341,36 @@
   // Strips any $ signs someone typed into the Price field so we don't double up with our own $.
   function formatPrice(price){
     return String(price || '').replace(/\$/g, '').trim();
+  }
+
+  // Auto-builds the full listing description from just Title, Price, Dimensions, and Things to note,
+  // plus fixed boilerplate (pickup/delivery/payment/church rebate). Edit the boilerplate lines below
+  // any time the flat rates, pickup city, or church info changes.
+  function buildDescription(item){
+    const price = formatPrice(item.price);
+    const lines = [];
+    lines.push(`\u{1F6CB}️: ${item.title}${price ? ' - $' + price : ''}`);
+    lines.push('');
+    if (item.dims){
+      lines.push(`\u{1F4CF} Dimensions: ${item.dims}`);
+      lines.push('');
+    }
+    if (item.note){
+      lines.push(`\u{1F4DD}: Things to note: ${item.note}`);
+      lines.push('');
+    }
+    lines.push(`⚡️First come, first served — grab this piece before it's gone!`);
+    lines.push(`\u{1F4CD} Pickup: Phenix City`);
+    lines.push('');
+    lines.push(`\u{1F69A} Delivery: $100 flat to Columbus, Phenix City, Smiths Station, or Fort Benning (+$25 per flight of stairs)`);
+    lines.push('');
+    lines.push(`\u{1F4B3} Zelle • Cash App • Apple Pay`);
+    lines.push(`(First payment locks it in \u{1F512})`);
+    lines.push('');
+    lines.push(`$50 rebate if you come to church this Sunday!`);
+    lines.push('');
+    lines.push(`10:45 AM service at Church Of The Highlands (Columbus GA Conventions And Trade Center downtown)`);
+    return lines.join('\n');
   }
 
   function escapeHtml(str){
