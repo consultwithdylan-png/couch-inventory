@@ -129,10 +129,25 @@
     background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
     cursor:pointer;font-size:18px;color:var(--navy);z-index:5;
   }
-  .modal .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
+  .modal .gallery{position:relative;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
   .modal .gallery img{width:100%;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;object-fit:cover;}
   .modal .gallery-dots{display:flex;gap:6px;justify-content:center;padding:10px 0 0;}
-  .modal .gallery-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);}
+  .modal .gallery-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .2s ease;}
+  .modal .gallery-dots span.active{background:var(--blue);}
+  .modal .gallery-hint{
+    position:absolute;top:50%;right:14px;transform:translateY(-50%);
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(0,32,63,0.55);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;pointer-events:none;
+    opacity:1;transition:opacity .35s ease;
+    animation:hintNudge 1.6s ease-in-out infinite;
+  }
+  .modal .gallery-hint.hide{opacity:0;}
+  @keyframes hintNudge{
+    0%,100%{transform:translateY(-50%) translateX(0);}
+    50%{transform:translateY(-50%) translateX(4px);}
+  }
   .modal .content{padding:26px 28px 30px;}
   .modal h2{margin:0 0 4px;font-size:26px;}
   .modal .price{color:var(--blue-dark);font-weight:700;font-size:20px;margin-bottom:14px;}
@@ -387,10 +402,16 @@
     const videoHtml = item.videoIds.length
       ? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
       : '';
+    const hasMultiple = photos.length > 1;
+    const hintHtml = hasMultiple ? `<div class="gallery-hint" id="galleryHint">&#10095;</div>` : '';
+    const dotsHtml = hasMultiple
+      ? `<div class="gallery-dots">${photos.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')}</div>`
+      : '';
 
     modal.innerHTML = `
       <div class="close-btn" id="closeModal">✕</div>
-      <div class="gallery">${galleryImgs}</div>
+      <div class="gallery" id="modalGallery">${galleryImgs}${hintHtml}</div>
+      ${dotsHtml}
       <div class="content">
         <h2>${escapeHtml(item.title)}</h2>
         ${item.price ? `<div class="price">$${escapeHtml(formatPrice(item.price))}</div>` : ''}
@@ -405,6 +426,17 @@
     `;
     document.getElementById('overlay').classList.add('open');
     document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    if (hasMultiple){
+      const galleryEl = document.getElementById('modalGallery');
+      const hintEl = document.getElementById('galleryHint');
+      const dots = modal.querySelectorAll('.gallery-dots span');
+      galleryEl.addEventListener('scroll', () => {
+        const idx = Math.round(galleryEl.scrollLeft / galleryEl.clientWidth);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        if (hintEl) hintEl.classList.toggle('hide', idx > 0);
+      });
+    }
   }
 
   function closeModal(){
