@@ -129,10 +129,39 @@
     background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
     cursor:pointer;font-size:18px;color:var(--navy);z-index:5;
   }
+  .modal .gallery-wrap{position:relative;}
   .modal .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
   .modal .gallery img{width:100%;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;object-fit:cover;}
   .modal .gallery-dots{display:flex;gap:6px;justify-content:center;padding:10px 0 0;}
-  .modal .gallery-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);}
+  .modal .gallery-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);transition:all .2s ease;}
+  .modal .gallery-dots span.active{background:var(--blue);width:22px;border-radius:4px;}
+  .modal .gallery-counter{
+    position:absolute;top:12px;right:12px;background:rgba(0,32,63,0.72);color:#fff;
+    padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700;z-index:4;letter-spacing:.02em;
+  }
+  .modal .gallery-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,0.92);border:1px solid var(--line);display:flex;align-items:center;
+    justify-content:center;cursor:pointer;font-size:18px;color:var(--navy);z-index:4;box-shadow:var(--shadow);
+    user-select:none;
+  }
+  .modal .gallery-arrow.prev{left:12px;}
+  .modal .gallery-arrow.next{right:12px;}
+  .modal .swipe-hint{
+    position:absolute;bottom:38px;left:50%;background:rgba(0,32,63,0.82);color:#fff;
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;
+    align-items:center;gap:7px;z-index:4;pointer-events:none;
+    animation:swipeHintPlay 2.8s ease forwards;
+  }
+  @keyframes swipeHintPlay{
+    0%{opacity:0;transform:translateX(-50%) translateY(6px);}
+    12%{opacity:1;transform:translateX(-50%) translateY(0);}
+    30%{transform:translateX(-62%) translateY(0);}
+    50%{transform:translateX(-38%) translateY(0);}
+    68%{transform:translateX(-50%) translateY(0);}
+    85%{opacity:1;}
+    100%{opacity:0;transform:translateX(-50%) translateY(0);}
+  }
   .modal .content{padding:26px 28px 30px;}
   .modal h2{margin:0 0 4px;font-size:26px;}
   .modal .price{color:var(--blue-dark);font-weight:700;font-size:20px;margin-bottom:14px;}
@@ -201,6 +230,13 @@
 
 <script>
   // ---- CONFIG ----
+  // CSV_URL's gid MUST point at the "Live Inventory" tab (currently gid=630283708) —
+  // NOT "Form Responses 1" (raw, un-staged submissions). Live Inventory is the tab
+  // Code.gs actually writes approved/staged listings to. Pointing this at the wrong
+  // tab, or renaming a column in Live Inventory, silently broke photos + captions
+  // on 2026-08-03. loadInventory() below now checks for the required column names
+  // and shows a visible on-page error instead of failing silently — but if you ever
+  // change this URL, sanity-check it against the live site before walking away.
   const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=630283708";
   const BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/showingatdylans";
 
@@ -280,6 +316,18 @@
       const headers = rows[0].map(h => h.trim());
       const idx = name => headers.indexOf(name);
 
+      // ---- SAFETY CHECK ----
+      // Catches the exact failure mode from 2026-08-03: if CSV_URL's gid ever points
+      // at the wrong sheet tab, or a column in Live Inventory gets renamed, these
+      // columns won't be found. Fail loudly with a visible on-page message instead
+      // of silently showing blank/wrong photos and captions.
+      const REQUIRED_COLUMNS = ['Couch Title', 'Price ($)', 'Dimensions', 'Photos', 'Status', 'Timestamp', 'Things to note'];
+      const missingColumns = REQUIRED_COLUMNS.filter(c => idx(c) === -1);
+      if (missingColumns.length){
+        showDataSourceError(missingColumns);
+        return;
+      }
+
       const iTitle = idx('Couch Title');
       const iNote = idx('Things to note');
       const iPrice = idx('Price ($)');
@@ -305,6 +353,23 @@
       document.getElementById('resultCount').textContent = 'Could not load inventory right now.';
       console.error(err);
     }
+  }
+
+  function showDataSourceError(missing){
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('resultCount').textContent = '⚠️ Inventory data source misconfigured';
+    const empty = document.getElementById('emptyState');
+    empty.style.display = 'block';
+    empty.innerHTML = `
+      <div class="icon">⚠️</div>
+      <div style="max-width:480px;margin:0 auto;">
+        <strong>Something's wrong with the inventory data source.</strong><br>
+        Expected column${missing.length === 1 ? '' : 's'} not found: <code>${missing.map(escapeHtml).join(', ')}</code>.<br><br>
+        This usually means CSV_URL's <code>gid</code> got pointed at the wrong sheet tab, or a column
+        was renamed in "Live Inventory". Check the CONFIG comment at the top of this file.
+      </div>
+    `;
+    console.error('[Inventory] Missing expected columns:', missing);
   }
 
   function render(){
@@ -353,16 +418,30 @@
   function openModal(item){
     const modal = document.getElementById('modal');
     const isSold = item.status.toLowerCase() === 'sold';
-    const galleryImgs = item.photoIds.length
+    const photoCount = item.photoIds.length;
+    const galleryImgs = photoCount
       ? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
       : `<img src="" style="opacity:0" alt="">`;
     const videoHtml = item.videoIds.length
       ? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
       : '';
+    const multi = photoCount > 1;
+    const dotsHtml = multi
+      ? Array.from({length: photoCount}).map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')
+      : '';
 
     modal.innerHTML = `
       <div class="close-btn" id="closeModal">✕</div>
-      <div class="gallery">${galleryImgs}</div>
+      <div class="gallery-wrap">
+        <div class="gallery" id="galleryScroll">${galleryImgs}</div>
+        ${multi ? `
+          <div class="gallery-counter" id="galleryCounter">1 / ${photoCount}</div>
+          <div class="gallery-arrow prev" id="galleryPrev">‹</div>
+          <div class="gallery-arrow next" id="galleryNext">›</div>
+          <div class="swipe-hint" id="swipeHint">👉 Swipe for more photos</div>
+        ` : ''}
+      </div>
+      ${multi ? `<div class="gallery-dots" id="galleryDots">${dotsHtml}</div>` : ''}
       <div class="content">
         <h2>${escapeHtml(item.title)}</h2>
         ${item.price ? `<div class="price">$${escapeHtml(item.price)}</div>` : ''}
@@ -377,6 +456,30 @@
     `;
     document.getElementById('overlay').classList.add('open');
     document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    if (multi){
+      const scrollEl = document.getElementById('galleryScroll');
+      const dots = document.querySelectorAll('#galleryDots span');
+      const counter = document.getElementById('galleryCounter');
+      const hint = document.getElementById('swipeHint');
+
+      const updateActive = () => {
+        const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
+        dots.forEach((d, di) => d.classList.toggle('active', di === i));
+        if (counter) counter.textContent = `${i + 1} / ${photoCount}`;
+      };
+      scrollEl.addEventListener('scroll', () => {
+        window.clearTimeout(scrollEl._t);
+        scrollEl._t = window.setTimeout(updateActive, 60);
+        if (hint) { hint.style.animation = 'none'; hint.style.opacity = '0'; }
+      });
+      document.getElementById('galleryPrev').addEventListener('click', () => {
+        scrollEl.scrollBy({left: -scrollEl.clientWidth, behavior: 'smooth'});
+      });
+      document.getElementById('galleryNext').addEventListener('click', () => {
+        scrollEl.scrollBy({left: scrollEl.clientWidth, behavior: 'smooth'});
+      });
+    }
   }
 
   function closeModal(){
