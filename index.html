@@ -242,6 +242,33 @@
     return cell.split(',').map(s => s.trim()).filter(Boolean).map(driveFileId).filter(Boolean);
   }
 
+  // ---- Same caption format used when a listing is approved and posted to FB/IG (mirrors Code.gs buildCaption_) ----
+  function buildCaption(title, price, dims, note){
+    const priceStr = String(price || '').replace(/\$/g, '').trim();
+    const lines = [];
+    lines.push('🛋️: ' + title + (priceStr ? ' - $' + priceStr : ''));
+    lines.push('');
+    if (dims){
+      lines.push('📏 Dimensions: ' + dims);
+      lines.push('');
+    }
+    if (note){
+      lines.push('📝: Things to note: ' + note);
+      lines.push('');
+    }
+    lines.push("⚡️First come, first served — grab this piece before it's gone!");
+    lines.push('📍 Pickup: Phenix City');
+    lines.push('');
+    lines.push('🚚 Delivery: $100 flat to Columbus, Phenix City, Smiths Station, or Fort Benning (+$25 per flight of stairs)');
+    lines.push('');
+    lines.push('💳 Zelle • Cash App • Apple Pay');
+    lines.push('(First payment locks it in 🔒)');
+    lines.push('');
+    lines.push('$50 rebate if you come to church this Sunday!');
+    lines.push('10:45 AM service at Church Of The Highlands (Columbus GA Conventions And Trade Center downtown)');
+    return lines.join('\n');
+  }
+
   let ITEMS = [];
   let currentFilter = 'available';
 
@@ -256,6 +283,7 @@
       const iTitle = idx('Couch Title');
       const iNote = idx('Things to note');
       const iPrice = idx('Price ($)');
+      const iDims = idx('Dimensions');
       const iPhotos = idx('Photos');
       const iVideo = idx('Video (optional)');
       const iStatus = idx('Status');
@@ -263,7 +291,7 @@
 
       ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
         title: r[iTitle] || 'Couch',
-        desc: r[iNote] || '',
+        desc: buildCaption(r[iTitle] || 'Couch', r[iPrice] || '', r[iDims] || '', r[iNote] || ''),
         price: (r[iPrice] || '').replace(/^\$/, ''),
         photoIds: parseFileList(r[iPhotos]),
         videoIds: parseFileList(r[iVideo]),
