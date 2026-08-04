@@ -254,18 +254,19 @@
       const idx = name => headers.indexOf(name);
 
       const iTitle = idx('Couch Title');
-      const iDesc = idx('Description (include condition/any damage)');
+      const iNote = idx('Things to note');
       const iPrice = idx('Price ($)');
-      const iPhotos = idx('Photos');
+      const iCover = idx('Photo to Stage (becomes cover)');
+      const iAdditional = idx('Additional Photos');
       const iVideo = idx('Video (optional)');
       const iStatus = idx('Status');
       const iTime = idx('Timestamp');
 
       ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
         title: r[iTitle] || 'Couch',
-        desc: r[iDesc] || '',
-        price: r[iPrice] || '',
-        photoIds: parseFileList(r[iPhotos]),
+        desc: r[iNote] || '',
+        price: (r[iPrice] || '').replace(/^\$/, ''),
+        photoIds: parseFileList([r[iCover], r[iAdditional]].filter(Boolean).join(',')),
         videoIds: parseFileList(r[iVideo]),
         status: (r[iStatus] || 'Available').trim(),
         timestamp: r[iTime] || ''
