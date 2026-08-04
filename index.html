@@ -201,7 +201,7 @@
 
 <script>
   // ---- CONFIG ----
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=1417070672";
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=630283708";
   const BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/showingatdylans";
 
   document.getElementById('bookingLink').href = BOOKING_URL;
@@ -256,8 +256,7 @@
       const iTitle = idx('Couch Title');
       const iNote = idx('Things to note');
       const iPrice = idx('Price ($)');
-      const iCover = idx('Photo to Stage (becomes cover)');
-      const iAdditional = idx('Additional Photos');
+      const iPhotos = idx('Photos');
       const iVideo = idx('Video (optional)');
       const iStatus = idx('Status');
       const iTime = idx('Timestamp');
@@ -266,7 +265,7 @@
         title: r[iTitle] || 'Couch',
         desc: r[iNote] || '',
         price: (r[iPrice] || '').replace(/^\$/, ''),
-        photoIds: parseFileList([r[iCover], r[iAdditional]].filter(Boolean).join(',')),
+        photoIds: parseFileList(r[iPhotos]),
         videoIds: parseFileList(r[iVideo]),
         status: (r[iStatus] || 'Available').trim(),
         timestamp: r[iTime] || ''
