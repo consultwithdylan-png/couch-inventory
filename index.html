@@ -170,7 +170,7 @@
   .modal .status-line{font-size:13px;font-weight:600;margin-bottom:16px;}
   .modal .actions{display:flex;gap:12px;flex-wrap:wrap;}
 
-  /* Booking section */
+  /* Reviews carousel */ .reviews{max-width:1180px;margin:0 auto;padding:44px 24px 8px;text-align:center;} .reviews .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:10px;} .reviews h2{font-size:clamp(26px,4vw,38px);margin:0 0 30px;color:var(--navy);} .review-carousel{max-width:700px;margin:0 auto;min-height:140px;display:flex;align-items:center;justify-content:center;position:relative;} .review-quote{display:none;font-size:16.5px;line-height:1.7;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 32px;box-shadow:var(--shadow);} .review-quote.active{display:block;animation:reviewFadeIn .5s ease;} .review-quote::before{content:'\201C';font-family:'Poppins',sans-serif;font-size:38px;color:var(--blue-light);display:block;line-height:0;margin-bottom:12px;} @keyframes reviewFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}} .review-dots{display:flex;gap:6px;justify-content:center;margin-top:18px;} .review-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s ease;} .review-dots span.active{background:var(--blue);}
   .booking{
     background:var(--navy);color:#fff;padding:56px 24px;text-align:center;
     margin-top:20px;
@@ -214,7 +214,7 @@
   </div>
 </main>
 
-<section class="booking" id="book">
+<section class="reviews" id="reviewsSection" style="display:none;"><div class="eyebrow">What Families Are Saying</div><h2>Over 1,000 Families Served</h2><div class="review-carousel" id="reviewCarousel"></div><div class="review-dots" id="reviewDots"></div></section> <section class="booking" id="book">
   <h2>Want to see one in person?</h2>
   <p>Book a time to swing by the warehouse and check out the couches yourself before you commit.</p>
   <a class="btn btn-primary" id="bookingLink" href="#" target="_blank" rel="noopener">Book a Visit</a>
@@ -500,7 +500,7 @@
   });
 
   loadInventory();
-  setInterval(loadInventory, 60000); // refresh every minute so new drops show up automatically
+  setInterval(loadInventory, 60000); loadReviews(); async function loadReviews(){ try { const res = await fetch('/api/reviews?_=' + Date.now()); const data = await res.json(); const reviews = (data && data.reviews) ? data.reviews.filter(r => r.text && r.text.trim().length > 0) : []; if (!reviews.length) return; const section = document.getElementById('reviewsSection'); const carousel = document.getElementById('reviewCarousel'); const dots = document.getElementById('reviewDots'); carousel.innerHTML = reviews.map((r, i) => `<div class="review-quote${i === 0 ? ' active' : ''}">${escapeHtml(r.text)}</div>`).join(''); dots.innerHTML = reviews.map((r, i) => `<span class="${i === 0 ? 'active' : ''}" data-i="${i}"></span>`).join(''); section.style.display = 'block'; let current = 0; const quotes = carousel.querySelectorAll('.review-quote'); const dotEls = dots.querySelectorAll('span'); function showReview(i){ quotes[current].classList.remove('active'); dotEls[current].classList.remove('active'); current = i; quotes[current].classList.add('active'); dotEls[current].classList.add('active'); } dotEls.forEach(dot => { dot.addEventListener('click', () => showReview(parseInt(dot.dataset.i, 10))); }); if (reviews.length > 1){ setInterval(() => { showReview((current + 1) % reviews.length); }, 6000); } } catch(err){ console.error('reviews load failed', err); } } // refresh every minute so new drops show up automatically
 </script>
 
 </body>
