@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#00203F;
+   --navy:#00203F;
     --blue:#007BD8;
     --blue-dark:#005FAE;
     --blue-light:#47B6FE;
@@ -502,6 +502,6 @@
   loadInventory();
   setInterval(loadInventory, 60000); loadReviews(); async function loadReviews(){ try { const res = await fetch('/api/reviews?_=' + Date.now()); const data = await res.json(); const reviews = (data && data.reviews) ? data.reviews.filter(r => r.text && r.text.trim().length > 0) : []; if (!reviews.length) return; const section = document.getElementById('reviewsSection'); const carousel = document.getElementById('reviewCarousel'); const dots = document.getElementById('reviewDots'); carousel.innerHTML = reviews.map((r, i) => `<div class="review-quote${i === 0 ? ' active' : ''}">${escapeHtml(r.text)}</div>`).join(''); dots.innerHTML = reviews.map((r, i) => `<span class="${i === 0 ? 'active' : ''}" data-i="${i}"></span>`).join(''); section.style.display = 'block'; let current = 0; const quotes = carousel.querySelectorAll('.review-quote'); const dotEls = dots.querySelectorAll('span'); function showReview(i){ quotes[current].classList.remove('active'); dotEls[current].classList.remove('active'); current = i; quotes[current].classList.add('active'); dotEls[current].classList.add('active'); } dotEls.forEach(dot => { dot.addEventListener('click', () => showReview(parseInt(dot.dataset.i, 10))); }); if (reviews.length > 1){ setInterval(() => { showReview((current + 1) % reviews.length); }, 6000); } } catch(err){ console.error('reviews load failed', err); } } // refresh every minute so new drops show up automatically
 </script>
-
+<style>.review-carousel{touch-action:pan-y;} .review-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-pale);color:var(--blue-dark);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-top:16px;}</style><script>(function(){var carousel=document.getElementById('reviewCarousel');var dotsWrap=document.getElementById('reviewDots');if(!carousel||!dotsWrap)return;function addBadges(){var quotes=carousel.querySelectorAll('.review-quote');quotes.forEach(function(q){if(!q.querySelector('.review-badge')){var b=document.createElement('div');b.className='review-badge';b.textContent='✓ Verified Customer';q.appendChild(b);}});}var mo=new MutationObserver(addBadges);mo.observe(carousel,{childList:true});addBadges();var touchStartX=0,touchStartY=0;carousel.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].clientX;touchStartY=e.changedTouches[0].clientY;},{passive:true});carousel.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-touchStartX;var dy=e.changedTouches[0].clientY-touchStartY;if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy))return;var dots=dotsWrap.querySelectorAll('span');if(!dots.length)return;var activeIndex=0;dots.forEach(function(d,i){if(d.classList.contains('active'))activeIndex=i;});var nextIndex=dx<0?(activeIndex+1)%dots.length:(activeIndex-1+dots.length)%dots.length;dots[nextIndex].click();},{passive:true});})();</script>
 </body>
 </html>
