@@ -8,501 +8,506 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-   --navy:#00203F;
-    --blue:#007BD8;
-    --blue-dark:#005FAE;
-    --blue-light:#47B6FE;
-    --blue-pale:#ACDDFE;
-    --white:#FFFFFF;
-    --bg:#F5FAFF;
-    --line:#D7ECFC;
-    --muted:#3F6584;
-    --shadow: 0 10px 30px rgba(0,32,63,0.10);
-    --shadow-hover: 0 18px 40px rgba(0,32,63,0.18);
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
-  h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
+:root{
+--navy:#00203F;
+--blue:#007BD8;
+--blue-dark:#005FAE;
+--blue-light:#47B6FE;
+--blue-pale:#ACDDFE;
+--white:#FFFFFF;
+--bg:#F5FAFF;
+--line:#D7ECFC;
+--muted:#3F6584;
+--shadow: 0 10px 30px rgba(0,32,63,0.10);
+--shadow-hover: 0 18px 40px rgba(0,32,63,0.18);
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
+h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
 
-  /* Hero */
-  header.hero{
-    padding:56px 24px 56px;
-    text-align:center;
-    background:
-      radial-gradient(circle at 15% 15%, rgba(71,182,254,0.18), transparent 40%),
-      radial-gradient(circle at 85% 0%, rgba(0,123,216,0.14), transparent 45%),
-      var(--bg);
-    border-bottom:1px solid var(--line);
-  }
-  header.hero .logo{
-    display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;
-  }
-  header.hero .logo img{height:160px;width:auto;}
-  header.hero .logo .wordmark{
-    font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:var(--navy);letter-spacing:.01em;
-  }
-  header.hero .eyebrow{
-    letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;
-    color:var(--blue-dark);margin-bottom:14px;
-  }
-  header.hero h1{font-size:clamp(32px,5vw,52px);margin:0 0 14px;color:var(--navy);}
-  header.hero p{max-width:560px;margin:0 auto;color:var(--muted);font-size:16px;line-height:1.6;}
-  header.hero .cta-row{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:13px 26px;border-radius:999px;font-weight:600;font-size:14px;
-    text-decoration:none;cursor:pointer;border:1px solid transparent;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-  }
-  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(0,123,216,0.35);}
-  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);}
-  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy);}
-  .btn-ghost:hover{background:var(--navy);color:#fff;transform:translateY(-2px);}
+/* Hero */
+header.hero{
+padding:56px 24px 56px;
+text-align:center;
+background:
+radial-gradient(circle at 15% 15%, rgba(71,182,254,0.24), transparent 40%),
+radial-gradient(circle at 85% 0%, rgba(0,123,216,0.20), transparent 45%),
+var(--bg);
+border-bottom:1px solid var(--line);
+}
+header.hero .logo{
+display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;
+}
+header.hero .logo img{height:160px;width:auto;}
+header.hero .logo .wordmark{
+font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:var(--navy);letter-spacing:.01em;
+}
+header.hero .eyebrow{
+letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;
+color:var(--blue-dark);margin-bottom:14px;
+}
+header.hero h1{font-size:clamp(26px,4.4vw,44px);margin:0 auto 20px;max-width:800px;line-height:1.3;color:var(--navy);}
+header.hero h1.neon-sign{display:inline-block;color:#EAF6FF;background:linear-gradient(180deg,#06182B 0%,#0A2340 100%);padding:clamp(16px,3.4vw,26px) clamp(20px,4.6vw,36px);border-radius:18px;border:1px solid rgba(71,182,254,0.45);text-shadow:0 0 4px #fff,0 0 11px #bdeaff,0 0 19px #47B6FE,0 0 40px #007BD8,0 0 80px #005FAE;box-shadow:0 0 30px rgba(71,182,254,0.35),0 0 70px rgba(0,123,216,0.25),var(--shadow);animation:neonFlicker 2.4s ease-in-out 1;}
+@keyframes neonFlicker{0%{opacity:0;}4%{opacity:1;}8%{opacity:.4;}12%{opacity:1;}20%{opacity:.5;}24%{opacity:1;}100%{opacity:1;}}
+header.hero p{max-width:560px;margin:0 auto;color:var(--muted);font-size:16px;line-height:1.6;}
+header.hero .cta-row{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn{
+display:inline-flex;align-items:center;gap:8px;
+padding:13px 26px;border-radius:999px;font-weight:600;font-size:14px;
+text-decoration:none;cursor:pointer;border:1px solid transparent;
+transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(0,123,216,0.35);}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy);}
+.btn-ghost:hover{background:var(--navy);color:#fff;transform:translateY(-2px);}
 
-  /* Filter bar */
-  .filter-bar{
-    max-width:1180px;margin:0 auto;padding:28px 24px 0;
-    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  }
-  .filter-bar .count{color:var(--muted);font-size:14px;}
-  .filter-chips{display:flex;gap:8px;}
-  .chip{
-    padding:8px 16px;border-radius:999px;border:1px solid var(--line);
-    background:#fff;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
-    transition:all .15s ease;
-  }
-  .chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+/* Filter bar */
+.filter-bar{
+max-width:1180px;margin:0 auto;padding:28px 24px 0;
+display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.filter-bar .count{color:var(--muted);font-size:14px;}
+.filter-chips{display:flex;gap:8px;}
+.chip{
+padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+background:#fff;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+transition:all .15s ease;
+}
+.chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 
-  /* Grid */
-  main{max-width:1180px;margin:0 auto;padding:28px 24px 80px;}
-  .grid{
-    display:grid;gap:28px;margin-top:24px;
-    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
-  }
-  .card{
-    background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);
-    box-shadow:var(--shadow);cursor:pointer;
-    transition:transform .2s ease, box-shadow .2s ease;
-    display:flex;flex-direction:column;
-  }
-  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
-  .card .thumb{
-    position:relative;aspect-ratio:4/3;background:var(--blue-pale) center/cover no-repeat;
-    display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;
-  }
-  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-  .card .badge{
-    position:absolute;top:12px;left:12px;padding:5px 12px;border-radius:999px;
-    font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-    background:rgba(0,32,63,0.85);color:#fff;
-  }
-  .card .badge.sold{background:rgba(0,32,63,0.88);}
-  .card .badge.available{background:rgba(0,123,216,0.92);}
-  .card .price-tag{
-    position:absolute;bottom:12px;right:12px;background:#fff;color:var(--navy);
-    padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:var(--shadow);
-  }
-  .card .body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column;}
-  .card h3{margin:0 0 8px;font-size:19px;color:var(--navy);}
-  .card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;}
-  .card .meta-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:12.5px;color:var(--muted);}
+/* Grid */
+main{max-width:1180px;margin:0 auto;padding:28px 24px 80px;}
+.grid{
+display:grid;gap:28px;margin-top:24px;
+grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+}
+.card{
+background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+box-shadow:var(--shadow);cursor:pointer;
+transition:transform .2s ease, box-shadow .2s ease;
+display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+.card .thumb{
+position:relative;aspect-ratio:4/3;background:var(--blue-pale) center/cover no-repeat;
+display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;
+overflow:hidden;
+}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
+.card:hover .thumb img{transform:scale(1.06);}
+.card .badge{
+position:absolute;top:12px;left:12px;padding:5px 12px;border-radius:999px;
+font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+background:rgba(0,32,63,0.85);color:#fff;
+}
+.card .badge.sold{background:rgba(0,32,63,0.88);}
+.card .badge.available{background:rgba(0,123,216,0.92);}
+.card .price-tag{
+position:absolute;bottom:12px;right:12px;background:#fff;color:var(--navy);
+padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:var(--shadow);
+border:1.5px solid rgba(0,123,216,0.3);
+}
+.card .body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column;}
+.card h3{margin:0 0 8px;font-size:19px;color:var(--navy);}
+.card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;
+display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;}
+.card .meta-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:12.5px;color:var(--muted);}
 
-  .empty-state{
-    text-align:center;padding:80px 20px;color:var(--muted);
-  }
-  .empty-state .icon{font-size:40px;margin-bottom:12px;}
+.empty-state{
+text-align:center;padding:80px 20px;color:var(--muted);
+}
+.empty-state .icon{font-size:40px;margin-bottom:12px;}
 
-  /* Modal */
-  .overlay{
-    position:fixed;inset:0;background:rgba(0,32,63,0.55);backdrop-filter:blur(2px);
-    display:none;align-items:center;justify-content:center;padding:24px;z-index:100;
-  }
-  .overlay.open{display:flex;}
-  .modal{
-    background:#fff;max-width:840px;width:100%;max-height:88vh;overflow-y:auto;
-    border-radius:20px;box-shadow:0 30px 70px rgba(0,20,40,0.35);position:relative;
-  }
-  .modal .close-btn{
-    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
-    background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
-    cursor:pointer;font-size:18px;color:var(--navy);z-index:5;
-  }
-  .modal .gallery-wrap{position:relative;}
-  .modal .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
-  .modal .gallery img{width:100%;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;object-fit:cover;}
-  .modal .gallery-dots{display:flex;gap:6px;justify-content:center;padding:10px 0 0;}
-  .modal .gallery-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);transition:all .2s ease;}
-  .modal .gallery-dots span.active{background:var(--blue);width:22px;border-radius:4px;}
-  .modal .gallery-counter{
-    position:absolute;top:12px;left:12px;background:rgba(0,32,63,0.72);color:#fff;
-    padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700;z-index:4;letter-spacing:.02em;
-  }
-  .modal .gallery-arrow{
-    position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
-    background:rgba(255,255,255,0.92);border:1px solid var(--line);display:flex;align-items:center;
-    justify-content:center;cursor:pointer;font-size:18px;color:var(--navy);z-index:4;box-shadow:var(--shadow);
-    user-select:none;
-  }
-  .modal .gallery-arrow.prev{left:12px;}
-  .modal .gallery-arrow.next{right:12px;}
-  .modal .swipe-hint{
-    position:absolute;bottom:38px;left:50%;background:rgba(0,32,63,0.82);color:#fff;
-    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;
-    align-items:center;gap:7px;z-index:4;pointer-events:none;
-    animation:swipeHintPlay 2.8s ease forwards;
-  }
-  @keyframes swipeHintPlay{
-    0%{opacity:0;transform:translateX(-50%) translateY(6px);}
-    12%{opacity:1;transform:translateX(-50%) translateY(0);}
-    30%{transform:translateX(-62%) translateY(0);}
-    50%{transform:translateX(-38%) translateY(0);}
-    68%{transform:translateX(-50%) translateY(0);}
-    85%{opacity:1;}
-    100%{opacity:0;transform:translateX(-50%) translateY(0);}
-  }
-  .modal .content{padding:26px 28px 30px;}
-  .modal h2{margin:0 0 4px;font-size:26px;}
-  .modal .price{color:var(--blue-dark);font-weight:700;font-size:20px;margin-bottom:14px;}
-  .modal .desc{white-space:pre-wrap;line-height:1.7;color:var(--muted);font-size:14.5px;margin-bottom:20px;}
-  .modal video{width:100%;border-radius:12px;margin-bottom:20px;background:#000;}
-  .modal .status-line{font-size:13px;font-weight:600;margin-bottom:16px;}
-  .modal .actions{display:flex;gap:12px;flex-wrap:wrap;}
+/* Modal */
+.overlay{
+position:fixed;inset:0;background:rgba(0,32,63,0.55);backdrop-filter:blur(2px);
+display:none;align-items:center;justify-content:center;padding:24px;z-index:100;
+}
+.overlay.open{display:flex;}
+.modal{
+background:#fff;max-width:840px;width:100%;max-height:88vh;overflow-y:auto;
+border-radius:20px;box-shadow:0 30px 70px rgba(0,20,40,0.35);position:relative;
+}
+.modal .close-btn{
+position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+cursor:pointer;font-size:18px;color:var(--navy);z-index:5;
+}
+.modal .gallery-wrap{position:relative;}
+.modal .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;background:var(--blue-pale);}
+.modal .gallery img{width:100%;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/3;object-fit:cover;}
+.modal .gallery-dots{display:flex;gap:6px;justify-content:center;padding:10px 0 0;}
+.modal .gallery-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);transition:all .2s ease;}
+.modal .gallery-dots span.active{background:var(--blue);width:22px;border-radius:4px;}
+.modal .gallery-counter{
+position:absolute;top:12px;left:12px;background:rgba(0,32,63,0.72);color:#fff;
+padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700;z-index:4;letter-spacing:.02em;
+}
+.modal .gallery-arrow{
+position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
+background:rgba(255,255,255,0.92);border:1px solid var(--line);display:flex;align-items:center;
+justify-content:center;cursor:pointer;font-size:18px;color:var(--navy);z-index:4;box-shadow:var(--shadow);
+user-select:none;
+}
+.modal .gallery-arrow.prev{left:12px;}
+.modal .gallery-arrow.next{right:12px;}
+.modal .swipe-hint{
+position:absolute;bottom:38px;left:50%;background:rgba(0,32,63,0.82);color:#fff;
+padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;
+align-items:center;gap:7px;z-index:4;pointer-events:none;
+animation:swipeHintPlay 2.8s ease forwards;
+}
+@keyframes swipeHintPlay{
+0%{opacity:0;transform:translateX(-50%) translateY(6px);}
+12%{opacity:1;transform:translateX(-50%) translateY(0);}
+30%{transform:translateX(-62%) translateY(0);}
+50%{transform:translateX(-38%) translateY(0);}
+68%{transform:translateX(-50%) translateY(0);}
+85%{opacity:1;}
+100%{opacity:0;transform:translateX(-50%) translateY(0);}
+}
+.modal .content{padding:26px 28px 30px;}
+.modal h2{margin:0 0 4px;font-size:26px;}
+.modal .price{color:var(--blue-dark);font-weight:700;font-size:20px;margin-bottom:14px;}
+.modal .desc{white-space:pre-wrap;line-height:1.7;color:var(--muted);font-size:14.5px;margin-bottom:20px;}
+.modal video{width:100%;border-radius:12px;margin-bottom:20px;background:#000;}
+.modal .status-line{font-size:13px;font-weight:600;margin-bottom:16px;}
+.modal .actions{display:flex;gap:12px;flex-wrap:wrap;}
 
-  /* Reviews carousel */ .reviews{max-width:1180px;margin:0 auto;padding:44px 24px 8px;text-align:center;} .reviews .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:10px;} .reviews h2{font-size:clamp(26px,4vw,38px);margin:0 0 30px;color:var(--navy);} .review-carousel{max-width:700px;margin:0 auto;min-height:140px;display:flex;align-items:center;justify-content:center;position:relative;} .review-quote{display:none;font-size:16.5px;line-height:1.7;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 32px;box-shadow:var(--shadow);} .review-quote.active{display:block;animation:reviewFadeIn .5s ease;} .review-quote::before{content:'\201C';font-family:'Poppins',sans-serif;font-size:38px;color:var(--blue-light);display:block;line-height:0;margin-bottom:12px;} @keyframes reviewFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}} .review-dots{display:flex;gap:6px;justify-content:center;margin-top:18px;} .review-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s ease;} .review-dots span.active{background:var(--blue);}
-  .booking{
-    background:var(--navy);color:#fff;padding:56px 24px;text-align:center;
-    margin-top:20px;
-  }
-  .booking h2{font-size:clamp(24px,4vw,34px);margin:0 0 12px;}
-  .booking p{color:var(--blue-pale);max-width:520px;margin:0 auto 26px;line-height:1.6;font-size:15px;}
+/* Reviews carousel */ .reviews{max-width:1180px;margin:0 auto;padding:44px 24px 8px;text-align:center;} .reviews .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:10px;} .reviews h2{font-size:clamp(26px,4vw,38px);margin:0 0 30px;color:var(--navy);} .review-carousel{max-width:700px;margin:0 auto;min-height:140px;display:flex;align-items:center;justify-content:center;position:relative;} .review-quote{display:none;font-size:16.5px;line-height:1.7;color:var(--muted);background:#fff;border:1px solid var(--line);border-top:3px solid var(--blue-light);border-radius:18px;padding:28px 32px;box-shadow:var(--shadow);} .review-quote.active{display:block;animation:reviewFadeIn .5s ease;} .review-quote::before{content:'\201C';font-family:'Poppins',sans-serif;font-size:38px;color:var(--blue-light);display:block;line-height:0;margin-bottom:12px;} @keyframes reviewFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}} .review-dots{display:flex;gap:6px;justify-content:center;margin-top:18px;} .review-dots span{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s ease;} .review-dots span.active{background:var(--blue);}
+.booking{
+background:var(--navy);color:#fff;padding:56px 24px;text-align:center;
+margin-top:20px;
+}
+.booking h2{font-size:clamp(24px,4vw,34px);margin:0 0 12px;}
+.booking p{color:var(--blue-pale);max-width:520px;margin:0 auto 26px;line-height:1.6;font-size:15px;}
 
-  footer{padding:32px 24px;text-align:center;color:var(--muted);font-size:13px;}
+footer{padding:32px 24px;text-align:center;color:var(--muted);font-size:13px;}
 
-  .loading{text-align:center;padding:80px 20px;color:var(--muted);}
+.loading{text-align:center;padding:80px 20px;color:var(--muted);}
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="logo">
-    <img src="logo-web.png" alt="Dylan's Couch Drops">
-  </div>
-  <div class="eyebrow">Columbus, GA, Fort Benning &amp; Surrounding Areas</div>
- <h1>Shop Quality Pre-Owned Couches For Less</h1>
-  <p>Quality secondhand couches, refreshed and ready for a new living room. Browse what's in stock right now — new pieces drop in all the time.</p>
-  <div class="cta-row">
-    <a href="#inventory" class="btn btn-primary">Browse Inventory</a>
-    <a href="#book" class="btn btn-ghost">Book a Warehouse Visit</a>
-  </div>
+<div class="logo">
+<img src="logo-web.png" alt="Dylan's Couch Drops">
+</div>
+<div class="eyebrow">Columbus, GA, Fort Benning &amp; Surrounding Areas</div>
+<h1 class="neon-sign">Shop Quality Pre-Owned Couches WITHOUT The Outrageous Price Tag!</h1>
+<p>Quality secondhand couches, refreshed and ready for a new living room. Browse what's in stock right now — new pieces drop in all the time.</p>
+<div class="cta-row">
+<a href="#inventory" class="btn btn-primary">Browse Inventory</a>
+<a href="#book" class="btn btn-ghost">Book a Warehouse Visit</a>
+</div>
 </header>
 
 <div class="filter-bar" id="inventory">
-  <div class="count" id="resultCount">Loading inventory…</div>
-  <div class="filter-chips">
-    <div class="chip active" data-filter="available">Available</div>
-    <div class="chip" data-filter="all">Show All</div>
-  </div>
+<div class="count" id="resultCount">Loading inventory…</div>
+<div class="filter-chips">
+<div class="chip active" data-filter="available">Available</div>
+<div class="chip" data-filter="all">Show All</div>
+</div>
 </div>
 
 <main>
-  <div id="grid" class="grid"></div>
-  <div id="emptyState" class="empty-state" style="display:none;">
-    <div class="icon">🛋️</div>
-    <div>No couches match that filter right now — check back soon.</div>
-  </div>
+<div id="grid" class="grid"></div>
+<div id="emptyState" class="empty-state" style="display:none;">
+<div class="icon">🛋️</div>
+<div>No couches match that filter right now — check back soon.</div>
+</div>
 </main>
 
 <section class="reviews" id="reviewsSection" style="display:none;"><div class="eyebrow">What Families Are Saying</div><h2>Over 1,000 Families Served</h2><div class="review-carousel" id="reviewCarousel"></div><div class="review-dots" id="reviewDots"></div></section> <section class="booking" id="book">
-  <h2>Want to see one in person?</h2>
-  <p>Book a time to swing by the warehouse and check out the couches yourself before you commit.</p>
-  <a class="btn btn-primary" id="bookingLink" href="#" target="_blank" rel="noopener">Book a Visit</a>
+<h2>Want to see one in person?</h2>
+<p>Book a time to swing by the warehouse and check out the couches yourself before you commit.</p>
+<a class="btn btn-primary" id="bookingLink" href="#" target="_blank" rel="noopener">Book a Visit</a>
 </section>
 
 <footer>
-  Dylan's Couch Drops LLC · 3005 Newsome Road, Unit C2, Phenix City, AL 36870 · (706) 365-0325 · dylanscouchdrops@gmail.com
+Dylan's Couch Drops LLC · 3005 Newsome Road, Unit C2, Phenix City, AL 36870 · (706) 365-0325 · dylanscouchdrops@gmail.com
 </footer>
 
 <div class="overlay" id="overlay">
-  <div class="modal" id="modal"></div>
+<div class="modal" id="modal"></div>
 </div>
 
 <script>
-  // ---- CONFIG ----
-  // CSV_URL's gid MUST point at the "Live Inventory" tab (currently gid=630283708) —
-  // NOT "Form Responses 1" (raw, un-staged submissions). Live Inventory is the tab
-  // Code.gs actually writes approved/staged listings to. Pointing this at the wrong
-  // tab, or renaming a column in Live Inventory, silently broke photos + captions
-  // on 2026-08-03. loadInventory() below now checks for the required column names
-  // and shows a visible on-page error instead of failing silently — but if you ever
-  // change this URL, sanity-check it against the live site before walking away.
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=630283708";
-  const BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/showingatdylans";
+// ---- CONFIG ----
+// CSV_URL's gid MUST point at the "Live Inventory" tab (currently gid=630283708) —
+// NOT "Form Responses 1" (raw, un-staged submissions). Live Inventory is the tab
+// Code.gs actually writes approved/staged listings to. Pointing this at the wrong
+// tab, or renaming a column in Live Inventory, silently broke photos + captions
+// on 2026-08-03. loadInventory() below now checks for the required column names
+// and shows a visible on-page error instead of failing silently — but if you ever
+// change this URL, sanity-check it against the live site before walking away.
+const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=630283708";
+const BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/showingatdylans";
 
-  document.getElementById('bookingLink').href = BOOKING_URL;
+document.getElementById('bookingLink').href = BOOKING_URL;
 
-  // ---- CSV PARSER (handles quoted fields with commas/newlines) ----
-  function parseCSV(text){
-    const rows = [];
-    let row = [], field = '', inQuotes = false;
-    for (let i = 0; i < text.length; i++){
-      const c = text[i], next = text[i+1];
-      if (inQuotes){
-        if (c === '"' && next === '"'){ field += '"'; i++; }
-        else if (c === '"'){ inQuotes = false; }
-        else { field += c; }
-      } else {
-        if (c === '"'){ inQuotes = true; }
-        else if (c === ','){ row.push(field); field = ''; }
-        else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
-        else if (c === '\r'){ /* skip */ }
-        else { field += c; }
-      }
-    }
-    if (field.length || row.length){ row.push(field); rows.push(row); }
-    return rows;
-  }
+// ---- CSV PARSER (handles quoted fields with commas/newlines) ----
+function parseCSV(text){
+const rows = [];
+let row = [], field = '', inQuotes = false;
+for (let i = 0; i < text.length; i++){
+const c = text[i], next = text[i+1];
+if (inQuotes){
+if (c === '"' && next === '"'){ field += '"'; i++; }
+else if (c === '"'){ inQuotes = false; }
+else { field += c; }
+} else {
+if (c === '"'){ inQuotes = true; }
+else if (c === ','){ row.push(field); field = ''; }
+else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+else if (c === '\r'){ /* skip */ }
+else { field += c; }
+}
+}
+if (field.length || row.length){ row.push(field); rows.push(row); }
+return rows;
+}
 
-  function driveFileId(url){
-    const m = url.match(/[-\w]{25,}/);
-    return m ? m[0] : null;
-  }
+function driveFileId(url){
+const m = url.match(/[-\w]{25,}/);
+return m ? m[0] : null;
+}
 
-  function driveImageUrl(id){
-    return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-  }
+function driveImageUrl(id){
+return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+}
 
-  function parseFileList(cell){
-    if (!cell) return [];
-    return cell.split(',').map(s => s.trim()).filter(Boolean).map(driveFileId).filter(Boolean);
-  }
+function parseFileList(cell){
+if (!cell) return [];
+return cell.split(',').map(s => s.trim()).filter(Boolean).map(driveFileId).filter(Boolean);
+}
 
-  // ---- Same caption format used when a listing is approved and posted to FB/IG (mirrors Code.gs buildCaption_) ----
-  function buildCaption(title, price, dims, note){
-    const priceStr = String(price || '').replace(/\$/g, '').trim();
-    const lines = [];
-    lines.push('🛋️: ' + title + (priceStr ? ' - $' + priceStr : ''));
-    lines.push('');
-    if (dims){
-      lines.push('📏 Dimensions: ' + dims);
-      lines.push('');
-    }
-    if (note){
-      lines.push('📝: Things to note: ' + note);
-      lines.push('');
-    }
-    lines.push("⚡️First come, first served — grab this piece before it's gone!");
-    lines.push('📍 Pickup: Phenix City');
-    lines.push('');
-    lines.push('🚚 Delivery: $100 flat to Columbus, Phenix City, Smiths Station, or Fort Benning (+$25 per flight of stairs)');
-    lines.push('');
-    lines.push('💳 Zelle • Cash App • Apple Pay');
-    lines.push('(First payment locks it in 🔒)');
-    lines.push('');
-    lines.push('$50 rebate if you come to church this Sunday!');
-    lines.push('10:45 AM service at Church Of The Highlands (Columbus GA Conventions And Trade Center downtown)');
-    return lines.join('\n');
-  }
+// ---- Same caption format used when a listing is approved and posted to FB/IG (mirrors Code.gs buildCaption_) ----
+function buildCaption(title, price, dims, note){
+const priceStr = String(price || '').replace(/\$/g, '').trim();
+const lines = [];
+lines.push('🛋️: ' + title + (priceStr ? ' - $' + priceStr : ''));
+lines.push('');
+if (dims){
+lines.push('📏 Dimensions: ' + dims);
+lines.push('');
+}
+if (note){
+lines.push('📝: Things to note: ' + note);
+lines.push('');
+}
+lines.push("⚡️First come, first served — grab this piece before it's gone!");
+lines.push('📍 Pickup: Phenix City');
+lines.push('');
+lines.push('🚚 Delivery: $100 flat to Columbus, Phenix City, Smiths Station, or Fort Benning (+$25 per flight of stairs)');
+lines.push('');
+lines.push('💳 Zelle • Cash App • Apple Pay');
+lines.push('(First payment locks it in 🔒)');
+lines.push('');
+lines.push('$50 rebate if you come to church this Sunday!');
+lines.push('10:45 AM service at Church Of The Highlands (Columbus GA Conventions And Trade Center downtown)');
+return lines.join('\n');
+}
 
-  let ITEMS = [];
-  let currentFilter = 'available';
+let ITEMS = [];
+let currentFilter = 'available';
 
-  async function loadInventory(){
-    try {
-      const res = await fetch(CSV_URL + '&_=' + Date.now());
-      const text = await res.text();
-      const rows = parseCSV(text);
-      const headers = rows[0].map(h => h.trim());
-      const idx = name => headers.indexOf(name);
+async function loadInventory(){
+try {
+const res = await fetch(CSV_URL + '&_=' + Date.now());
+const text = await res.text();
+const rows = parseCSV(text);
+const headers = rows[0].map(h => h.trim());
+const idx = name => headers.indexOf(name);
 
-      // ---- SAFETY CHECK ----
-      // Catches the exact failure mode from 2026-08-03: if CSV_URL's gid ever points
-      // at the wrong sheet tab, or a column in Live Inventory gets renamed, these
-      // columns won't be found. Fail loudly with a visible on-page message instead
-      // of silently showing blank/wrong photos and captions.
-      const REQUIRED_COLUMNS = ['Couch Title', 'Price ($)', 'Dimensions', 'Photos', 'Status', 'Timestamp', 'Things to note'];
-      const missingColumns = REQUIRED_COLUMNS.filter(c => idx(c) === -1);
-      if (missingColumns.length){
-        showDataSourceError(missingColumns);
-        return;
-      }
+// ---- SAFETY CHECK ----
+// Catches the exact failure mode from 2026-08-03: if CSV_URL's gid ever points
+// at the wrong sheet tab, or a column in Live Inventory gets renamed, these
+// columns won't be found. Fail loudly with a visible on-page message instead
+// of silently showing blank/wrong photos and captions.
+const REQUIRED_COLUMNS = ['Couch Title', 'Price ($)', 'Dimensions', 'Photos', 'Status', 'Timestamp', 'Things to note'];
+const missingColumns = REQUIRED_COLUMNS.filter(c => idx(c) === -1);
+if (missingColumns.length){
+showDataSourceError(missingColumns);
+return;
+}
 
-      const iTitle = idx('Couch Title');
-      const iNote = idx('Things to note');
-      const iPrice = idx('Price ($)');
-      const iDims = idx('Dimensions');
-      const iPhotos = idx('Photos');
-      const iVideo = idx('Video (optional)');
-      const iStatus = idx('Status');
-      const iTime = idx('Timestamp');
+const iTitle = idx('Couch Title');
+const iNote = idx('Things to note');
+const iPrice = idx('Price ($)');
+const iDims = idx('Dimensions');
+const iPhotos = idx('Photos');
+const iVideo = idx('Video (optional)');
+const iStatus = idx('Status');
+const iTime = idx('Timestamp');
 
-      ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
-        title: r[iTitle] || 'Couch',
-        desc: buildCaption(r[iTitle] || 'Couch', r[iPrice] || '', r[iDims] || '', r[iNote] || ''),
-        price: (r[iPrice] || '').replace(/^\$/, ''),
-        photoIds: parseFileList(r[iPhotos]),
-        videoIds: parseFileList(r[iVideo]),
-        status: (r[iStatus] || 'Available').trim(),
-        timestamp: r[iTime] || ''
-      })).reverse(); // newest first
+ITEMS = rows.slice(1).filter(r => r.length > 1 && r[iTitle]).map(r => ({
+title: r[iTitle] || 'Couch',
+desc: buildCaption(r[iTitle] || 'Couch', r[iPrice] || '', r[iDims] || '', r[iNote] || ''),
+price: (r[iPrice] || '').replace(/^\$/, ''),
+photoIds: parseFileList(r[iPhotos]),
+videoIds: parseFileList(r[iVideo]),
+status: (r[iStatus] || 'Available').trim(),
+timestamp: r[iTime] || ''
+})).reverse(); // newest first
 
-      render();
-    } catch (err){
-      document.getElementById('grid').innerHTML = '';
-      document.getElementById('resultCount').textContent = 'Could not load inventory right now.';
-      console.error(err);
-    }
-  }
+render();
+} catch (err){
+document.getElementById('grid').innerHTML = '';
+document.getElementById('resultCount').textContent = 'Could not load inventory right now.';
+console.error(err);
+}
+}
 
-  function showDataSourceError(missing){
-    document.getElementById('grid').innerHTML = '';
-    document.getElementById('resultCount').textContent = '⚠️ Inventory data source misconfigured';
-    const empty = document.getElementById('emptyState');
-    empty.style.display = 'block';
-    empty.innerHTML = `
-      <div class="icon">⚠️</div>
-      <div style="max-width:480px;margin:0 auto;">
-        <strong>Something's wrong with the inventory data source.</strong><br>
-        Expected column${missing.length === 1 ? '' : 's'} not found: <code>${missing.map(escapeHtml).join(', ')}</code>.<br><br>
-        This usually means CSV_URL's <code>gid</code> got pointed at the wrong sheet tab, or a column
-        was renamed in "Live Inventory". Check the CONFIG comment at the top of this file.
-      </div>
-    `;
-    console.error('[Inventory] Missing expected columns:', missing);
-  }
+function showDataSourceError(missing){
+document.getElementById('grid').innerHTML = '';
+document.getElementById('resultCount').textContent = '⚠️ Inventory data source misconfigured';
+const empty = document.getElementById('emptyState');
+empty.style.display = 'block';
+empty.innerHTML = `
+<div class="icon">⚠️</div>
+<div style="max-width:480px;margin:0 auto;">
+<strong>Something's wrong with the inventory data source.</strong><br>
+Expected column${missing.length === 1 ? '' : 's'} not found: <code>${missing.map(escapeHtml).join(', ')}</code>.<br><br>
+This usually means CSV_URL's <code>gid</code> got pointed at the wrong sheet tab, or a column
+was renamed in "Live Inventory". Check the CONFIG comment at the top of this file.
+</div>
+`;
+console.error('[Inventory] Missing expected columns:', missing);
+}
 
-  function render(){
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('emptyState');
-    const filtered = currentFilter === 'available'
-      ? ITEMS.filter(i => i.status.toLowerCase() !== 'sold')
-      : ITEMS;
+function render(){
+const grid = document.getElementById('grid');
+const empty = document.getElementById('emptyState');
+const filtered = currentFilter === 'available'
+? ITEMS.filter(i => i.status.toLowerCase() !== 'sold')
+: ITEMS;
 
-    document.getElementById('resultCount').textContent =
-      filtered.length === 0 ? 'No couches to show' :
-      `${filtered.length} couch${filtered.length === 1 ? '' : 'es'}${currentFilter === 'available' ? ' available' : ' total'}`;
+document.getElementById('resultCount').textContent =
+filtered.length === 0 ? 'No couches to show' :
+`${filtered.length} couch${filtered.length === 1 ? '' : 'es'}${currentFilter === 'available' ? ' available' : ' total'}`;
 
-    grid.innerHTML = '';
-    empty.style.display = filtered.length === 0 ? 'block' : 'none';
+grid.innerHTML = '';
+empty.style.display = filtered.length === 0 ? 'block' : 'none';
 
-    filtered.forEach((item, i) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const thumbUrl = item.photoIds[0] ? driveImageUrl(item.photoIds[0]) : '';
-      const isSold = item.status.toLowerCase() === 'sold';
-      card.innerHTML = `
-        <div class="thumb">
-          ${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" alt="${escapeHtml(item.title)}">` : 'No photo yet'}
-          <span class="badge ${isSold ? 'sold' : 'available'}">${isSold ? 'Sold' : 'Available'}</span>
-          ${item.price ? `<span class="price-tag">$${escapeHtml(item.price)}</span>` : ''}
-        </div>
-        <div class="body">
-          <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(item.desc)}</p>
-          <div class="meta-row">
-            <span>${item.photoIds.length} photo${item.photoIds.length === 1 ? '' : 's'}${item.videoIds.length ? ' · video' : ''}</span>
-            <span>View details →</span>
-          </div>
-        </div>
-      `;
-      card.addEventListener('click', () => openModal(item));
-      grid.appendChild(card);
-    });
-  }
+filtered.forEach((item, i) => {
+const card = document.createElement('div');
+card.className = 'card';
+const thumbUrl = item.photoIds[0] ? driveImageUrl(item.photoIds[0]) : '';
+const isSold = item.status.toLowerCase() === 'sold';
+card.innerHTML = `
+<div class="thumb">
+${thumbUrl ? `<img src="${thumbUrl}" loading="lazy" alt="${escapeHtml(item.title)}">` : 'No photo yet'}
+<span class="badge ${isSold ? 'sold' : 'available'}">${isSold ? 'Sold' : 'Available'}</span>
+${item.price ? `<span class="price-tag">$${escapeHtml(item.price)}</span>` : ''}
+</div>
+<div class="body">
+<h3>${escapeHtml(item.title)}</h3>
+<p>${escapeHtml(item.desc)}</p>
+<div class="meta-row">
+<span>${item.photoIds.length} photo${item.photoIds.length === 1 ? '' : 's'}${item.videoIds.length ? ' · video' : ''}</span>
+<span>View details →</span>
+</div>
+</div>
+`;
+card.addEventListener('click', () => openModal(item));
+grid.appendChild(card);
+});
+}
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
+function escapeHtml(str){
+return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
 
-  function openModal(item){
-    const modal = document.getElementById('modal');
-    const isSold = item.status.toLowerCase() === 'sold';
-    const photoCount = item.photoIds.length;
-    const galleryImgs = photoCount
-      ? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
-      : `<img src="" style="opacity:0" alt="">`;
-    const videoHtml = item.videoIds.length
-      ? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
-      : '';
-    const multi = photoCount > 1;
-    const dotsHtml = multi
-      ? Array.from({length: photoCount}).map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')
-      : '';
+function openModal(item){
+const modal = document.getElementById('modal');
+const isSold = item.status.toLowerCase() === 'sold';
+const photoCount = item.photoIds.length;
+const galleryImgs = photoCount
+? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
+: `<img src="" style="opacity:0" alt="">`;
+const videoHtml = item.videoIds.length
+? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
+: '';
+const multi = photoCount > 1;
+const dotsHtml = multi
+? Array.from({length: photoCount}).map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')
+: '';
 
-    modal.innerHTML = `
-      <div class="close-btn" id="closeModal">✕</div>
-      <div class="gallery-wrap">
-        <div class="gallery" id="galleryScroll">${galleryImgs}</div>
-        ${multi ? `
-          <div class="gallery-counter" id="galleryCounter">1 / ${photoCount}</div>
-          <div class="gallery-arrow prev" id="galleryPrev">‹</div>
-          <div class="gallery-arrow next" id="galleryNext">›</div>
-          <div class="swipe-hint" id="swipeHint">👉 Swipe for more photos</div>
-        ` : ''}
-      </div>
-      ${multi ? `<div class="gallery-dots" id="galleryDots">${dotsHtml}</div>` : ''}
-      <div class="content">
-        <h2>${escapeHtml(item.title)}</h2>
-        ${item.price ? `<div class="price">$${escapeHtml(item.price)}</div>` : ''}
-        <div class="status-line" style="color:${isSold ? '#00203F' : '#007BD8'}">${isSold ? 'Sold' : 'Available now'}</div>
-        <div class="desc">${escapeHtml(item.desc)}</div>
-        ${videoHtml}
-        <div class="actions">
-          <a class="btn btn-primary" href="${BOOKING_URL}" target="_blank" rel="noopener">Book a Visit</a>
-          <a class="btn btn-ghost" href="tel:+17063650325">Call to Purchase Now</a>
-        </div>
-      </div>
-    `;
-    document.getElementById('overlay').classList.add('open');
-    document.getElementById('closeModal').addEventListener('click', closeModal);
+modal.innerHTML = `
+<div class="close-btn" id="closeModal">✕</div>
+<div class="gallery-wrap">
+<div class="gallery" id="galleryScroll">${galleryImgs}</div>
+${multi ? `
+<div class="gallery-counter" id="galleryCounter">1 / ${photoCount}</div>
+<div class="gallery-arrow prev" id="galleryPrev">‹</div>
+<div class="gallery-arrow next" id="galleryNext">›</div>
+<div class="swipe-hint" id="swipeHint">👉 Swipe for more photos</div>
+` : ''}
+</div>
+${multi ? `<div class="gallery-dots" id="galleryDots">${dotsHtml}</div>` : ''}
+<div class="content">
+<h2>${escapeHtml(item.title)}</h2>
+${item.price ? `<div class="price">$${escapeHtml(item.price)}</div>` : ''}
+<div class="status-line" style="color:${isSold ? '#00203F' : '#007BD8'}">${isSold ? 'Sold' : 'Available now'}</div>
+<div class="desc">${escapeHtml(item.desc)}</div>
+${videoHtml}
+<div class="actions">
+<a class="btn btn-primary" href="${BOOKING_URL}" target="_blank" rel="noopener">Book a Visit</a>
+<a class="btn btn-ghost" href="tel:+17063650325">Call to Purchase Now</a>
+</div>
+</div>
+`;
+document.getElementById('overlay').classList.add('open');
+document.getElementById('closeModal').addEventListener('click', closeModal);
 
-    if (multi){
-      const scrollEl = document.getElementById('galleryScroll');
-      const dots = document.querySelectorAll('#galleryDots span');
-      const counter = document.getElementById('galleryCounter');
-      const hint = document.getElementById('swipeHint');
+if (multi){
+const scrollEl = document.getElementById('galleryScroll');
+const dots = document.querySelectorAll('#galleryDots span');
+const counter = document.getElementById('galleryCounter');
+const hint = document.getElementById('swipeHint');
 
-      const updateActive = () => {
-        const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
-        dots.forEach((d, di) => d.classList.toggle('active', di === i));
-        if (counter) counter.textContent = `${i + 1} / ${photoCount}`;
-      };
-      scrollEl.addEventListener('scroll', () => {
-        window.clearTimeout(scrollEl._t);
-        scrollEl._t = window.setTimeout(updateActive, 60);
-        if (hint) { hint.style.animation = 'none'; hint.style.opacity = '0'; }
-      });
-      document.getElementById('galleryPrev').addEventListener('click', () => {
-        scrollEl.scrollBy({left: -scrollEl.clientWidth, behavior: 'smooth'});
-      });
-      document.getElementById('galleryNext').addEventListener('click', () => {
-        scrollEl.scrollBy({left: scrollEl.clientWidth, behavior: 'smooth'});
-      });
-    }
-  }
+const updateActive = () => {
+const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
+dots.forEach((d, di) => d.classList.toggle('active', di === i));
+if (counter) counter.textContent = `${i + 1} / ${photoCount}`;
+};
+scrollEl.addEventListener('scroll', () => {
+window.clearTimeout(scrollEl._t);
+scrollEl._t = window.setTimeout(updateActive, 60);
+if (hint) { hint.style.animation = 'none'; hint.style.opacity = '0'; }
+});
+document.getElementById('galleryPrev').addEventListener('click', () => {
+scrollEl.scrollBy({left: -scrollEl.clientWidth, behavior: 'smooth'});
+});
+document.getElementById('galleryNext').addEventListener('click', () => {
+scrollEl.scrollBy({left: scrollEl.clientWidth, behavior: 'smooth'});
+});
+}
+}
 
-  function closeModal(){
-    document.getElementById('overlay').classList.remove('open');
-  }
+function closeModal(){
+document.getElementById('overlay').classList.remove('open');
+}
 
-  document.getElementById('overlay').addEventListener('click', (e) => {
-    if (e.target.id === 'overlay') closeModal();
-  });
+document.getElementById('overlay').addEventListener('click', (e) => {
+if (e.target.id === 'overlay') closeModal();
+});
 
-  document.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      currentFilter = chip.dataset.filter;
-      render();
-    });
-  });
+document.querySelectorAll('.chip').forEach(chip => {
+chip.addEventListener('click', () => {
+document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+chip.classList.add('active');
+currentFilter = chip.dataset.filter;
+render();
+});
+});
 
-  loadInventory();
-  setInterval(loadInventory, 60000); loadReviews(); async function loadReviews(){ try { const res = await fetch('/api/reviews?_=' + Date.now()); const data = await res.json(); const reviews = (data && data.reviews) ? data.reviews.filter(r => r.text && r.text.trim().length > 0) : []; if (!reviews.length) return; const section = document.getElementById('reviewsSection'); const carousel = document.getElementById('reviewCarousel'); const dots = document.getElementById('reviewDots'); carousel.innerHTML = reviews.map((r, i) => `<div class="review-quote${i === 0 ? ' active' : ''}">${escapeHtml(r.text)}</div>`).join(''); dots.innerHTML = reviews.map((r, i) => `<span class="${i === 0 ? 'active' : ''}" data-i="${i}"></span>`).join(''); section.style.display = 'block'; let current = 0; const quotes = carousel.querySelectorAll('.review-quote'); const dotEls = dots.querySelectorAll('span'); function showReview(i){ quotes[current].classList.remove('active'); dotEls[current].classList.remove('active'); current = i; quotes[current].classList.add('active'); dotEls[current].classList.add('active'); } dotEls.forEach(dot => { dot.addEventListener('click', () => showReview(parseInt(dot.dataset.i, 10))); }); if (reviews.length > 1){ setInterval(() => { showReview((current + 1) % reviews.length); }, 6000); } } catch(err){ console.error('reviews load failed', err); } } // refresh every minute so new drops show up automatically
+loadInventory();
+setInterval(loadInventory, 60000); loadReviews(); async function loadReviews(){ try { const res = await fetch('/api/reviews?_=' + Date.now()); const data = await res.json(); const reviews = (data && data.reviews) ? data.reviews.filter(r => r.text && r.text.trim().length > 0) : []; if (!reviews.length) return; const section = document.getElementById('reviewsSection'); const carousel = document.getElementById('reviewCarousel'); const dots = document.getElementById('reviewDots'); carousel.innerHTML = reviews.map((r, i) => `<div class="review-quote${i === 0 ? ' active' : ''}">${escapeHtml(r.text)}</div>`).join(''); dots.innerHTML = reviews.map((r, i) => `<span class="${i === 0 ? 'active' : ''}" data-i="${i}"></span>`).join(''); section.style.display = 'block'; let current = 0; const quotes = carousel.querySelectorAll('.review-quote'); const dotEls = dots.querySelectorAll('span'); function showReview(i){ quotes[current].classList.remove('active'); dotEls[current].classList.remove('active'); current = i; quotes[current].classList.add('active'); dotEls[current].classList.add('active'); } dotEls.forEach(dot => { dot.addEventListener('click', () => showReview(parseInt(dot.dataset.i, 10))); }); if (reviews.length > 1){ setInterval(() => { showReview((current + 1) % reviews.length); }, 6000); } } catch(err){ console.error('reviews load failed', err); } } // refresh every minute so new drops show up automatically
 </script>
 <style>.review-carousel{touch-action:pan-y;} .review-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-pale);color:var(--blue-dark);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-top:16px;}</style><script>(function(){var carousel=document.getElementById('reviewCarousel');var dotsWrap=document.getElementById('reviewDots');if(!carousel||!dotsWrap)return;function addBadges(){var quotes=carousel.querySelectorAll('.review-quote');quotes.forEach(function(q){if(!q.querySelector('.review-badge')){var b=document.createElement('div');b.className='review-badge';b.textContent='✓ Verified Customer';q.appendChild(b);}});}var mo=new MutationObserver(addBadges);mo.observe(carousel,{childList:true});addBadges();var touchStartX=0,touchStartY=0;carousel.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].clientX;touchStartY=e.changedTouches[0].clientY;},{passive:true});carousel.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-touchStartX;var dy=e.changedTouches[0].clientY-touchStartY;if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy))return;var dots=dotsWrap.querySelectorAll('span');if(!dots.length)return;var activeIndex=0;dots.forEach(function(d,i){if(d.classList.contains('active'))activeIndex=i;});var nextIndex=dx<0?(activeIndex+1)%dots.length:(activeIndex-1+dots.length)%dots.length;dots[nextIndex].click();},{passive:true});})();</script>
-  <style>.review-swipe-hint{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;color:var(--muted);font-size:12.5px;font-weight:600;} .review-swipe-hint .hint-icon{display:inline-block;animation:swipeNudge 1.6s ease-in-out infinite;} @keyframes swipeNudge{0%,100%{transform:translateX(0);}50%{transform:translateX(-4px);}}</style><script>(function(){var dotsWrap=document.getElementById('reviewDots');var carousel=document.getElementById('reviewCarousel');if(!dotsWrap||!carousel)return;function addHint(){if(dotsWrap.children.length>1&&!document.querySelector('.review-swipe-hint')){var hint=document.createElement('div');hint.className='review-swipe-hint';hint.innerHTML='<span class="hint-icon">👉</span> Swipe to see more reviews';dotsWrap.insertAdjacentElement('afterend',hint);}}var mo=new MutationObserver(addHint);mo.observe(dotsWrap,{childList:true});addHint();})();</script>
+<style>.review-swipe-hint{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;color:var(--muted);font-size:12.5px;font-weight:600;} .review-swipe-hint .hint-icon{display:inline-block;animation:swipeNudge 1.6s ease-in-out infinite;} @keyframes swipeNudge{0%,100%{transform:translateX(0);}50%{transform:translateX(-4px);}}</style><script>(function(){var dotsWrap=document.getElementById('reviewDots');var carousel=document.getElementById('reviewCarousel');if(!dotsWrap||!carousel)return;function addHint(){if(dotsWrap.children.length>1&&!document.querySelector('.review-swipe-hint')){var hint=document.createElement('div');hint.className='review-swipe-hint';hint.innerHTML='<span class="hint-icon">👉</span> Swipe to see more reviews';dotsWrap.insertAdjacentElement('afterend',hint);}}var mo=new MutationObserver(addHint);mo.observe(dotsWrap,{childList:true});addHint();})();</script>
 </body>
 </html>
