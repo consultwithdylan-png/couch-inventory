@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-  const url = 'https://script.google.com/macros/s/AKfycbxr5eb42WjOQDXRn_RN9x8i4ErVFlIjS0TWOENL91zbX0Js4fp45pNA96Ef9nHkKMCf/exec?view=reviews';
+  const url = 'https://couch-drops.consultwithdylan.workers.dev/public/reviews';
   const resp = await fetch(url, { redirect: 'follow' });
   const text = await resp.text();
   return new Response(text, {
