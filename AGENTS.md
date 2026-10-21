@@ -6,6 +6,9 @@ The public inventory website for **Dylan's Couch Drops**, a couch reselling busi
 - Hosting: Cloudflare Pages, **free plan**. **Merging to `main` deploys within about a minute.** Work on a branch and open a PR. Cloudflare also builds a preview link for each branch, so check that before merging.
 - **This repo is public.** Never commit secrets, PINs, tokens, API keys or private business numbers.
 
+## Start here
+- The shared notebook of what's in progress, what's next and recent changes is `STATUS.md` in the **couch-drops-fast** repo. Read it first. When you change this site, add a line to its Recent changes. If you can't reach that repo, put the line in your PR description so it can be copied over.
+
 ## Files
 - `index.html`: the whole site. Plain HTML, CSS and JS with no framework and no build step. Brand colors are CSS variables in `:root` (navy `#00203F`, blue `#007BD8`). Fonts are Poppins for headings and Inter for body text.
 - `functions/api/reviews.js`: a Cloudflare Pages Function at `/api/reviews`. It forwards to the admin app's `/public/reviews` (positive Facebook reviews).
