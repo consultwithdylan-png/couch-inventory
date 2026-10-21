@@ -240,7 +240,7 @@ Dylan's Couch Drops LLC · 3005 Newsome Road, Unit C2, Phenix City, AL 36870 · 
 // on 2026-08-03. loadInventory() below now checks for the required column names
 // and shows a visible on-page error instead of failing silently — but if you ever
 // change this URL, sanity-check it against the live site before walking away.
-const CSV_URL = "https://docs.google.com/spreadsheets/d/1sXUsrHDpk0xwx_cF_jIr4FxzhhDHfplqUhZb-PESi8Q/gviz/tq?tqx=out:csv&gid=630283708";
+const CSV_URL = "https://couch-drops.consultwithdylan.workers.dev/public/live.csv?v=1";
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/showingatdylans";
 
 document.getElementById('bookingLink').href = BOOKING_URL;
@@ -427,7 +427,9 @@ const galleryImgs = photoCount
 ? item.photoIds.map(id => `<img src="${driveImageUrl(id)}" alt="${escapeHtml(item.title)}">`).join('')
 : `<img src="" style="opacity:0" alt="">`;
 const videoHtml = item.videoIds.length
-? `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`
+? (/^[0-9a-f]{8}-[0-9a-f]{4}-/.test(item.videoIds[0])
+  ? `<video src="https://couch-drops.consultwithdylan.workers.dev/video/${item.videoIds[0]}" controls playsinline preload="metadata" style="width:100%;max-height:420px;border-radius:12px;margin-bottom:20px;background:#000"></video>`
+  : `<iframe src="https://drive.google.com/file/d/${item.videoIds[0]}/preview" width="100%" height="360" style="border-radius:12px;margin-bottom:20px;border:none;" allow="autoplay"></iframe>`)
 : '';
 const multi = photoCount > 1;
 const dotsHtml = multi
