@@ -273,6 +273,7 @@ return m ? m[0] : null;
 }
 
 function driveImageUrl(id){
+if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)) return `https://couch-drops.consultwithdylan.workers.dev/img/${id}?w=1000`;
 return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
 }
 
